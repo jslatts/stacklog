@@ -1,0 +1,20 @@
+{
+  "author": "Justin Slattery <Justin.Slattery@majorleaguesoccer.com> (http://dev.mlsdigital.net/)",
+  "name": "stacklog",
+  "description": "Wrapper for winston to facilitate nested logging prefixes.",
+  "version": "0.0.1",
+  "homepage": "https://github.com/majorleaguesoccer/stacklog",
+  "license" : "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git@github.com:majorleaguesoccer/stacklog.git"
+  },
+  "main": "./lib/stacklog.js",
+  "scripts": {},
+  "engines": {
+    "node": ">= 0.10.11"
+  },
+  "dependencies": {
+    "winston": "0.7.x"
+  }
+}
