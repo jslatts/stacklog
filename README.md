@@ -74,8 +74,8 @@ To change to a different delimiter, pass an options object to the constructor:
 
 ## Performance
 
-On core i7 2012 Macbook Air w/ 8GB . Average over 100 runs of 1000 iterations. 
-There was zero sciences involved in this experiment.
+Tests were run on core i7 2012 Macbook Air w/ 8GB ram. Average over 100 runs of
+1000 iterations. There was zero sciences involved in this experiment.
 
 | Test | average (microseconds) |
 | nolog.js | 1.8 | 
