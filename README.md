@@ -17,10 +17,10 @@ A totally contrived example is below:
     info: [FakeApp][run][onGetWidget] returning widget 123, name 'Foo' 
 
 Performance implications? Yes. Not logging at all performs much better (as
-expected). Short of using dTrace, this is just a penalty logging incurs. The
-upside is that running stacklog in less verbose log levels performs (as you
-would in normal production operation) better than leaving console.log()
-statements in. See performance section below.
+expected). Short of using [dTrace](http://dtrace.org/), this is just a penalty
+logging incurs. The upside is that running stacklog in less verbose log levels
+performs (as you would in normal production operation) better than leaving
+console.log() statements in.
 
 If you find this useful, or you have a better way of accomplishing the same
 task, I would love to hear it!
