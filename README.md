@@ -1,7 +1,29 @@
 # stacklog
 
-stacklog is a simple wrapper for a logger module that allows you
-to add log state to code with nested callbacks.
+stacklog is a generic wrapper for logging modules that allows you to add 
+log state to nested callbacks. It came about from a project that I recently 
+shipped that required very detailed logging to debug. By "stacking" up 
+logging prefixes, I was able to trace the application flow. The downside of this
+approach is that it requires discipline during development--each function entry
+must be logged. I used a few snippets in Vim to automate the process.
+
+Note: stacklog does not pass the log prefix stack out of normal closure scope. 
+If your code calls out to another module or function, it will log accordingly. 
+A totally contrived example is below:
+
+    info: [FakeApp][run] User requested 123
+    info: [DAL][get] 123
+    info: [DAL][get][onGet] 123 retrieved
+    info: [FakeApp][run][onGetWidget] returning widget 123, name 'Foo' 
+
+Performance implications? Probably. I only have used this in a back-end service
+that does not need to be highly performant. Someone should probably benchmark 
+this :)
+
+If you find this useful, or you have a better way of accomplishing the same 
+task, I would love to hear it! 
+
+@jdslatts on twitter or Justin.Slattery@mlssoccer.com
 
 ## Example
 
@@ -35,13 +57,17 @@ Other than the minimal example above, stacklog is best used when abstracted
 away from your app in a local module. This will allow you to set up your 
 preferred logger with appropriate config and then call it throughout your
 application. See examples/fakeapp.js and example/winston.js for a more
-realistic use case. To run the example:
+realistic use case. To run the example (which uses [Winston](https://github.com/flatiron/winston)):
 
+    npm install winston
     node examples/fakeapp.js
 
 ## Options
 
+By default, stacklog will wrap all stack entries in \[square\] brackets. 
+To change to a different delimiter, pass an options object to the constructor:
 
+    new StackLog(logger, {bd: '(', ed: ')'});
 
 ## License 
 

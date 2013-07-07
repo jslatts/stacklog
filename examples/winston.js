@@ -24,4 +24,4 @@ transports: [
 , error: 5
 });
 
-module.exports = new StackLog(logger);
+module.exports = new StackLog(logger, {bd: '(', ed: ')'});
