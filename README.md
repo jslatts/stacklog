@@ -25,7 +25,7 @@ console.log() statements in.
 If you find this useful, or you have a better way of accomplishing the same
 task, I would love to hear it!
 
-@jdslatts on twitter or Justin.Slattery@mlssoccer.com
+@jdslatts on twitter or [Justin.Slatterymlssoccer.com](mailto:Justin.Slattery@mlssoccer.com)
 
 ## Example
 
