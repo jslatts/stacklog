@@ -16,11 +16,11 @@ A totally contrived example is below:
     info: [DAL][get][onGet] 123 retrieved
     info: [FakeApp][run][onGetWidget] returning widget 123, name 'Foo' 
 
-Performance implications? Yes. Not logging at all performs much better (as
-expected). Short of using [dTrace](http://dtrace.org/), this is just a penalty
-logging incurs. The upside is that running stacklog in less verbose log levels
-performs (as you would in normal production operation) better than leaving
-console.log() statements in.
+Performance implications? Yes. _Not_ logging at all performs much better (as
+expected). Short of using [dTrace](http://dtrace.org/), this is an unavoidable
+penalty that any logging solution will have to incur. The upside is that running
+stacklog at less verbose log levels (as you would in normal production
+operation) performs better than leaving console.log() statements in.
 
 If you find this useful, or you have a better way of accomplishing the same
 task, I would love to hear it!
@@ -77,12 +77,13 @@ To change to a different delimiter, pass an options object to the constructor:
 Tests were run on core i7 2012 Macbook Air w/ 8GB ram. Average over 100 runs of
 1000 iterations. There was zero sciences involved in this experiment.
 
-| Test | average (microseconds) |
-| nolog.js | 1.8 | 
-| console.js | 22041.17 |
-| winston.js | 45438.45 |
-| stacklogon.js | 77842.35 |
-| stacklogoff.js | 14706.28 |
+Test - average (microseconds) 
+
+* nolog.js - 1.8
+* console.js - 22041.17 
+* winston.js - 45438.45 
+* stacklogon.js - 77842.35 
+* stacklogoff.js - 14706.28 
 
 ## License 
 
