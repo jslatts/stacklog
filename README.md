@@ -1,14 +1,14 @@
 # stacklog
 
-stacklog is a generic wrapper for logging modules that allows you to add 
-log state to nested callbacks. It came about from a project that I recently 
-shipped that required very detailed logging to debug. By "stacking" up 
-logging prefixes, I was able to trace the application flow. The downside of this
-approach is that it requires discipline during development--each function entry
-must be logged. I used a few snippets in Vim to automate the process.
+stacklog is a generic wrapper for logging modules that allows you to add  log
+state to nested callbacks. It came about from a project that I recently  shipped
+that required very detailed logging to debug. By "stacking" up logging prefixes,
+I was able to trace the application flow. The downside of this approach is that
+it requires discipline during development--each function entry must be logged. I
+used a few snippets in Vim to automate the process.
 
-Note: stacklog does not pass the log prefix stack out of normal closure scope. 
-If your code calls out to another module or function, it will log accordingly. 
+Note: stacklog does not pass the log prefix stack out of normal closure scope.
+If your code calls out to another module or function, it will log accordingly.
 A totally contrived example is below:
 
     info: [FakeApp][run] User requested 123
@@ -16,12 +16,14 @@ A totally contrived example is below:
     info: [DAL][get][onGet] 123 retrieved
     info: [FakeApp][run][onGetWidget] returning widget 123, name 'Foo' 
 
-Performance implications? Probably. I only have used this in a back-end service
-that does not need to be highly performant. Someone should probably benchmark 
-this :)
+Performance implications? Yes. Not logging at all performs much better (as
+expected). Short of using dTrace, this is just a penalty logging incurs. The
+upside is that running stacklog in less verbose log levels performs (as you
+would in normal production operation) better than leaving console.log()
+statements in. See performance section below.
 
-If you find this useful, or you have a better way of accomplishing the same 
-task, I would love to hear it! 
+If you find this useful, or you have a better way of accomplishing the same
+task, I would love to hear it!
 
 @jdslatts on twitter or Justin.Slattery@mlssoccer.com
 
@@ -53,11 +55,12 @@ _Output_
 
 ## How to use
 
-Other than the minimal example above, stacklog is best used when abstracted 
-away from your app in a local module. This will allow you to set up your 
+Other than the minimal example above, stacklog is best used when abstracted
+away from your app in a local module. This will allow you to set up your
 preferred logger with appropriate config and then call it throughout your
-application. See examples/fakeapp.js and example/winston.js for a more
-realistic use case. To run the example (which uses [Winston](https://github.com/flatiron/winston)):
+application. See examples/fakeapp.js and example/winston.js for a more realistic
+use case. To run the example (which uses
+[Winston](https://github.com/flatiron/winston)):
 
     npm install winston
     node examples/fakeapp.js
@@ -69,31 +72,41 @@ To change to a different delimiter, pass an options object to the constructor:
 
     new StackLog(logger, {bd: '(', ed: ')'});
 
+## Performance
+
+On core i7 2012 Macbook Air w/ 8GB . Average over 100 runs of 1000 iterations. 
+There was zero sciences involved in this experiment.
+
+| Test | average (microseconds) |
+| nolog.js | 1.8 | 
+| console.js | 22041.17 |
+| winston.js | 45438.45 |
+| stacklogon.js | 77842.35 |
+| stacklogoff.js | 14706.28 |
+
 ## License 
 
 (The MIT License)
 
-Copyright (c) 2013 Justin Slattery (Justin.Slattery@majorleaguesoccer.com) and 
+Copyright (c) 2013 Justin Slattery (Justin.Slattery@majorleaguesoccer.com) and
 Major League Soccer, LLC.
 
-Permission is hereby granted, free of charge, to any person obtaining
-a copy of this software and associated documentation files (the
-'Software'), to deal in the Software without restriction, including
-without limitation the rights to use, copy, modify, merge, publish,
-distribute, sublicense, and/or sell copies of the Software, and to
-permit persons to whom the Software is furnished to do so, subject to
-the following conditions:
+Permission is hereby granted, free of charge, to any person obtaining a copy of
+this software and associated documentation files (the 'Software'), to deal in
+the Software without restriction, including without limitation the rights to
+use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of
+the Software, and to permit persons to whom the Software is furnished to do so,
+subject to the following conditions:
 
-The above copyright notice and this permission notice shall be
-included in all copies or substantial portions of the Software.
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
 
-THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND,
-EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF
-MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT.
-IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY
-CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
-TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE
-SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
+THE SOFTWARE IS PROVIDED 'AS IS', WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS
+FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR
+COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER
+IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
+CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
 
 
 ## Gir
