@@ -24,4 +24,8 @@ transports: [
 , error: 5
 });
 
-module.exports = new StackLog(logger, {bd: '(', ed: ')'});
+// Create a new stacklog instance with passed prefix and cached logger
+module.exports = function (prefix) {
+  return (new StackLog(logger, {bd: '(', ed: ')'}))(prefix);
+};
+
