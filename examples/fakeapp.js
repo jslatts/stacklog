@@ -18,6 +18,7 @@ var log = require('./winston')('FakeApp');
       }
     },1000);
 
+    l2.debug(null, 'Here is a object.', { id: 1, foo: 'bar' });
     l2.debug('Everything seems to be going well.');
   });
 })();

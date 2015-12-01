@@ -4,7 +4,7 @@
   "description": "Wrapper for winston to facilitate nested logging prefixes.",
   "version": "0.0.4",
   "homepage": "https://github.com/majorleaguesoccer/stacklog",
-  "license" : "MIT",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "git@github.com:majorleaguesoccer/stacklog.git"
@@ -16,6 +16,7 @@
   },
   "dependencies": {},
   "devDependencies": {
-    "microtime": "*"
+    "microtime": "*",
+    "winston": "^2.1.1"
   }
 }
